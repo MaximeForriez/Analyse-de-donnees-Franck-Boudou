@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Source des données : https://www.data.gouv.fr/datasets/election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-1er-tour/
-with open("./data/resultats-elections-presidentielles-2022-1er-tour.csv","r") as fichier :
+with open("./data/resultats-elections-presidentielles-2022-1er-tour.csv","r",encoding='utf-8') as fichier :
     contenu = pd.read_csv(fichier)
 
 # Sources des données : production de M. Forriez, 2016-2023
@@ -117,21 +117,20 @@ print(did)
 colonnes_quanti = data.select_dtypes(include=['number'])
 
 # Boucle pour créer un boxplot pour chaque colonne
-def pourPasser():
-    for col in colonnes_quanti.columns:
-            plt.figure(figsize=(6, 4))
-            plt.boxplot(colonnes_quanti[col].dropna())  # On ignore les NaN
-            plt.title(f'Boxplot de {col}')
-            plt.ylabel(col)
-            
-            # Sauvegarde du graphique dans le dossier "boites_à_moustaches"
-            plt.savefig("./boites_à_moustaches/{}.png".format(col), bbox_inches='tight')
-            plt.close()  # Ferme la figure pour ne pas afficher toutes les figures à l'écran
-        
-        # print("Boxplots enregistrés dans le dossier 'boites_à_moustaches'.")
+for col in colonnes_quanti.columns:
+    plt.figure(figsize=(6, 4))
+    plt.boxplot(colonnes_quanti[col].dropna())  # On ignore les NaN
+    plt.title(f'Boxplot de {col}')
+    plt.ylabel(col)
+    
+    # Sauvegarde du graphique dans le dossier "boites_à_moustaches"
+    plt.savefig("./boites_à_moustaches/{}.png".format(col), bbox_inches='tight')
+    plt.close()  # Ferme la figure pour ne pas afficher toutes les figures à l'écran
+    
+    # print("Boxplots enregistrés dans le dossier 'boites_à_moustaches'.")
 
 # pour ouvrir le second fichier Island 
-with open("./data/island-index.csv","r") as fichier :
+with open("./data/island-index.csv","r",encoding='utf-8') as fichier :
     contenu = pd.read_csv(fichier)
 
 iles = pd.DataFrame(contenu)
